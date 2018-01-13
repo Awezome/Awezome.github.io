@@ -79,3 +79,4 @@ theme: landscape
 deploy:
   type: git
   repo: git@github.com:Awezome/Awezome.github.io.git
+  branch: master
