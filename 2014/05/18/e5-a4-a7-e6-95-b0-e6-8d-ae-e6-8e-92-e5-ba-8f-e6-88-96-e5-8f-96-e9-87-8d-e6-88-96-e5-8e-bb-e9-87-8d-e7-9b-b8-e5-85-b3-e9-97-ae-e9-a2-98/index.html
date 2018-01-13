@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>[转] 大数据排序或取重或去重相关问题 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1. 给定a、b两个文件，各存放50亿个url，每个url各占64字节，内存限制是4G，让你找出a、b文件共同的url？方案1：可以估计每个文件安的大小为50G×64=320G，远远大于内存限制的4G。所以不可能将其完全加载到内存中处理。考虑采取分而治之的方法。s 遍历文件a，对每个url求取 ，然后根据所取得的值将url分别存储到1000个小文件（记为 ）中。这样每个小文件的大约为300M。s">
+<meta name="keywords" content="算法,大数据,大文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[转] 大数据排序或取重或去重相关问题">
+<meta property="og:url" content="http://yoursite.com/2014/05/18/e5-a4-a7-e6-95-b0-e6-8d-ae-e6-8e-92-e5-ba-8f-e6-88-96-e5-8f-96-e9-87-8d-e6-88-96-e5-8e-bb-e9-87-8d-e7-9b-b8-e5-85-b3-e9-97-ae-e9-a2-98/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1. 给定a、b两个文件，各存放50亿个url，每个url各占64字节，内存限制是4G，让你找出a、b文件共同的url？方案1：可以估计每个文件安的大小为50G×64=320G，远远大于内存限制的4G。所以不可能将其完全加载到内存中处理。考虑采取分而治之的方法。s 遍历文件a，对每个url求取 ，然后根据所取得的值将url分别存储到1000个小文件（记为 ）中。这样每个小文件的大约为300M。s">
+<meta property="og:updated_time" content="2018-01-13T05:07:00.484Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[转] 大数据排序或取重或去重相关问题">
+<meta name="twitter:description" content="1. 给定a、b两个文件，各存放50亿个url，每个url各占64字节，内存限制是4G，让你找出a、b文件共同的url？方案1：可以估计每个文件安的大小为50G×64=320G，远远大于内存限制的4G。所以不可能将其完全加载到内存中处理。考虑采取分而治之的方法。s 遍历文件a，对每个url求取 ，然后根据所取得的值将url分别存储到1000个小文件（记为 ）中。这样每个小文件的大约为300M。s">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-e5-a4-a7-e6-95-b0-e6-8d-ae-e6-8e-92-e5-ba-8f-e6-88-96-e5-8f-96-e9-87-8d-e6-88-96-e5-8e-bb-e9-87-8d-e7-9b-b8-e5-85-b3-e9-97-ae-e9-a2-98" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/05/18/e5-a4-a7-e6-95-b0-e6-8d-ae-e6-8e-92-e5-ba-8f-e6-88-96-e5-8f-96-e9-87-8d-e6-88-96-e5-8e-bb-e9-87-8d-e7-9b-b8-e5-85-b3-e9-97-ae-e9-a2-98/" class="article-date">
+  <time datetime="2014-05-18T07:18:09.000Z" itemprop="datePublished">2014-05-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Algorithm/">Algorithm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [转] 大数据排序或取重或去重相关问题
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1. 给定a、b两个文件，各存放50亿个url，每个url各占64字节，内存限制是4G，让你找出a、b文件共同的url？<br>方案1：可以估计每个文件安的大小为50G×64=320G，远远大于内存限制的4G。所以不可能将其完全加载到内存中处理。考虑采取分而治之的方法。<br>s 遍历文件a，对每个url求取 ，然后根据所取得的值将url分别存储到1000个小文件（记为 ）中。这样每个小文件的大约为300M。<br>s 遍历文件b，采取和a相同的方式将url分别存储到1000各小文件（记为 ）。这样处理后，所有可能相同的url都在对应的小文件（ ）中，不对应的小文件不可能有相同的url。然后我们只要求出1000对小文件中相同的url即可。<br>s 求每对小文件中相同的url时，可以把其中一个小文件的url存储到hash_set中。然后遍历另一个小文件的每个url，看其是否在刚才构建的hash_set中，如果是，那么就是共同的url，存到文件里面就可以了。<br>方案2：如果允许有一定的错误率，可以使用Bloom filter，4G内存大概可以表示340亿bit。将其中一个文件中的url使用Bloom filter映射为这340亿bit，然后挨个读取另外一个文件的url，检查是否与Bloom filter，如果是，那么该url应该是共同的url（注意会有一定的错误率）。<br><a id="more"></a></p>
+<p>2. 有10个文件，每个文件1G，每个文件的每一行存放的都是用户的query，每个文件的query都可能重复。要求你按照query的频度排序。<br>方案1：<br>s 顺序读取10个文件，按照hash(query)%10的结果将query写入到另外10个文件（记为 ）中。这样新生成的文件每个的大小大约也1G（假设hash函数是随机的）。<br>s 找一台内存在2G左右的机器，依次对 用hash_map(query, query_count)来统计每个query出现的次数。利用快速/堆/归并排序按照出现次数进行排序。将排序好的query和对应的query_cout输出到文件中。这样得到了10个排好序的文件（记为 ）。<br>s 对 这10个文件进行归并排序（内排序与外排序相结合）。<br>方案2：<br>一般query的总量是有限的，只是重复的次数比较多而已，可能对于所有的query，一次性就可以加入到内存了。这样，我们就可以采用trie树/hash_map等直接来统计每个query出现的次数，然后按出现次数做快速/堆/归并排序就可以了。<br>方案3：<br>与方案1类似，但在做完hash，分成多个文件后，可以交给多个文件来处理，采用分布式的架构来处理（比如MapReduce），最后再进行合并。 </p>
+<p>3. 有一个1G大小的一个文件，里面每一行是一个词，词的大小不超过16字节，内存限制大小是1M。返回频数最高的100个词。<br>方案1：顺序读文件中，对于每个词x，取 ，然后按照该值存到5000个小文件（记为 ） 中。这样每个文件大概是200k左右。如果其中的有的文件超过了1M大小，还可以按照类似的方法继续往下分，知道分解得到的小文件的大小都不超过1M。对 每个小文件，统计每个文件中出现的词以及相应的频率（可以采用trie树/hash_map等），并取出出现频率最大的100个词（可以用含100个结点 的最小堆），并把100词及相应的频率存入文件，这样又得到了5000个文件。下一步就是把这5000个文件进行归并（类似与归并排序）的过程了。</p>
+<p>4. 海量日志数据，提取出某日访问百度次数最多的那个IP。<br>方案1：首先是这一天，并且是访问百度的日志中的IP取出来，逐个写入到一个大文件中。注意到IP是32位的，最多有 个 IP。同样可以采用映射的方法，比如模1000，把整个大文件映射为1000个小文件，再找出每个小文中出现频率最大的IP（可以采用hash_map进 行频率统计，然后再找出频率最大的几个）及相应的频率。然后再在这1000个最大的IP中，找出那个频率最大的IP，即为所求。</p>
+<p>5. 在2.5亿个整数中找出不重复的整数，内存不足以容纳这2.5亿个整数。<br>方案1：采用2-Bitmap（每个数分配2bit，00表示不存在，01表示出现一次，10表示多次，11无意义）进行，共需内存 内存，还可以接受。然后扫描这2.5亿个整数，查看Bitmap中相对应位，如果是00变01，01变10，10保持不变。所描完事后，查看bitmap，把对应位是01的整数输出即可。<br>方案2：也可采用上题类似的方法，进行划分小文件的方法。然后在小文件中找出不重复的整数，并排序。然后再进行归并，注意去除重复的元素。 </p>
+<p>6. 海量数据分布在100台电脑中，想个办法高校统计出这批数据的TOP10。<br>方案1：<br>s 在每台电脑上求出TOP10，可以采用包含10个元素的堆完成（TOP10小，用最大堆，TOP10大，用最小堆）。比如求TOP10大，我们首先取前 10个元素调整成最小堆，如果发现，然后扫描后面的数据，并与堆顶元素比较，如果比堆顶元素大，那么用该元素替换堆顶，然后再调整为最小堆。最后堆中的元 素就是TOP10大。<br>s 求出每台电脑上的TOP10后，然后把这100台电脑上的TOP10组合起来，共1000个数据，再利用上面类似的方法求出TOP10就可以了。 </p>
+<p>7. 怎么在海量数据中找出重复次数最多的一个？<br>方案1：先做hash，然后求模映射为小文件，求出每个小文件中重复次数最多的一个，并记录重复次数。然后找出上一步求出的数据中重复次数最多的一个就是所求（具体参考前面的题）。</p>
+<p>8. 上千万或上亿数据（有重复），统计其中出现次数最多的钱N个数据。<br>方案1：上千万或上亿的数据，现在的机器的内存应该能存下。所以考虑采用hash_map/搜索二叉树/红黑树等来进行统计次数。然后就是取出前N个出现次数最多的数据了，可以用第6题提到的堆机制完成。</p>
+<p>9. 1000万字符串，其中有些是重复的，需要把重复的全部去掉，保留没有重复的字符串。请怎么设计和实现？<br>方案1：这题用trie树比较合适，hash_map也应该能行。 </p>
+<p>10. 一个文本文件，大约有一万行，每行一个词，要求统计出其中最频繁出现的前10个词，请给出思想，给出时间复杂度分析。<br>方案1：这题是考虑时间效率。用trie树统计每个词出现的次数，时间复杂度是O(n<em>le)（le表示单词的平准长度）。然后是找出出现最频繁的 前10个词，可以用堆来实现，前面的题中已经讲到了，时间复杂度是O(n</em>lg10)。所以总的时间复杂度，是O(n<em>le)与O(n</em>lg10)中较大 的哪一个。</p>
+<p>11. 一个文本文件，找出前10个经常出现的词，但这次文件比较长，说是上亿行或十亿行，总之无法一次读入内存，问最优解。<br>方案1：首先根据用hash并求模，将文件分解为多个小文件，对于单个文件利用上题的方法求出每个文件件中10个最常出现的词。然后再进行归并处理，找出最终的10个最常出现的词。</p>
+<p>12. 100w个数中找出最大的100个数。<br>方案1：在前面的题中，我们已经提到了，用一个含100个元素的最小堆完成。复杂度为O(100w<em>lg100)。<br>方案2：采用快速排序的思想，每次分割之后只考虑比轴大的一部分，知道比轴大的一部分在比100多的时候，采用传统排序算法排序，取前100个。复杂度为O(100w</em>100)。<br>方案3：采用局部淘汰法。选取前100个元素，并排序，记为序列L。然后一次扫描剩余的元素x，与排好序的100个元素中最小的元素比，如果比这个 最小的要大，那么把这个最小的元素删除，并把x利用插入排序的思想，插入到序列L中。依次循环，知道扫描了所有的元素。复杂度为O(100w*100)。</p>
+<p>13. 寻找热门查询：<br>搜索引擎会通过日志文件把用户每次检索使用的所有检索串都记录下来，每个查询串的长度为1-255字节。假设目前有一千万个记录，这些查询串的重复 读比较高，虽然总数是1千万，但是如果去除重复和，不超过3百万个。一个查询串的重复度越高，说明查询它的用户越多，也就越热门。请你统计最热门的10个 查询串，要求使用的内存不能超过1G。<br>(1) 请描述你解决这个问题的思路；<br>(2) 请给出主要的处理流程，算法，以及算法的复杂度。<br>方案1：采用trie树，关键字域存该查询串出现的次数，没有出现为0。最后用10个元素的最小推来对出现频率进行排序。 </p>
+<p>14. 一共有N个机器，每个机器上有N个数。每个机器最多存O(N)个数并对它们操作。如何找到 个数中的中数？<br>方案1：先大体估计一下这些数的范围，比如这里假设这些数都是32位无符号整数（共有 个）。我们把0到 的整数划分为N个范围段，每个段包含 个整数。比如，第一个段位0到 ，第二段为 到 ，…，第N个段为 到 。 然后，扫描每个机器上的N个数，把属于第一个区段的数放到第一个机器上，属于第二个区段的数放到第二个机器上，…，属于第N个区段的数放到第N个机器上。 注意这个过程每个机器上存储的数应该是O(N)的。下面我们依次统计每个机器上数的个数，一次累加，直到找到第k个机器，在该机器上累加的数大于或等于 ，而在第k-1个机器上的累加数小于 ，并把这个数记为x。那么我们要找的中位数在第k个机器中，排在第 位。然后我们对第k个机器的数排序，并找出第 个数，即为所求的中位数。复杂度是 的。<br>方案2：先对每台机器上的数进行排序。排好序后，我们采用归并排序的思想，将这N个机器上的数归并起来得到最终的排序。找到第n个便是所求。复杂度是n(i)的。 </p>
+<p>15. 最大间隙问题<br>给定n个实数 ，求着n个实数在实轴上向量2个数之间的最大差值，要求线性的时间算法。<br>方案1：最先想到的方法就是先对这n个数据进行排序，然后一遍扫描即可确定相邻的最大间隙。但该方法不能满足线性时间的要求。故采取如下方法：<br>s 找到n个数据中最大和最小数据max和min。<br>s 用n-2个点等分区间[min, max]，即将[min, max]等分为n-1个区间（前闭后开区间），将这些区间看作桶，编号为 ，且桶 的上界和桶i+1的下届相同，即每个桶的大小相同。每个桶的大小为： 。实际上，这些桶的边界构成了一个等差数列（首项为min，公差为 ），且认为将min放入第一个桶，将max放入第n-1个桶。<br>s 将n个数放入n-1个桶中：将每个元素 分配到某个桶（编号为index），其中 ，并求出分到每个桶的最大最小数据。<br>s 最大间隙：除最大最小数据max和min以外的n-2个数据放入n-1个桶中，由抽屉原理可知至少有一个桶是空的，又因为每个桶的大小相同，所以最大间隙 不会在同一桶中出现，一定是某个桶的上界和气候某个桶的下界之间隙，且该量筒之间的桶（即便好在该连个便好之间的桶）一定是空桶。也就是说，最大间隙在桶 i的上界和桶j的下界之间产生 。一遍扫描即可完成。</p>
+<p>16. 将多个集合合并成没有交集的集合：给定一个字符串的集合，格式如： 。要求将其中交集不为空的集合合并，要求合并完成的集合之间无交集，例如上例应输出 。<br>(1) 请描述你解决这个问题的思路；<br>(2) 给出主要的处理流程，算法，以及算法的复杂度；<br>(3) 请描述可能的改进。<br>方案1：采用并查集。首先所有的字符串都在单独的并查集中。然后依扫描每个集合，顺序合并将两个相邻元素合并。例如，对于 ， 首先查看aaa和bbb是否在同一个并查集中，如果不在，那么把它们所在的并查集合并，然后再看bbb和ccc是否在同一个并查集中，如果不在，那么也把 它们所在的并查集合并。接下来再扫描其他的集合，当所有的集合都扫描完了，并查集代表的集合便是所求。复杂度应该是O(NlgN)的。改进的话，首先可以 记录每个节点的根结点，改进查询。合并的时候，可以把大的和小的进行合，这样也减少复杂度。</p>
+<p>17. 最大子序列与最大子矩阵问题<br>数组的最大子序列问题：给定一个数组，其中元素有正，也有负，找出其中一个连续子序列，使和最大。<br>方案1：这个问题可以动态规划的思想解决。设 表示以第i个元素 结尾的最大子序列，那么显然 。基于这一点可以很快用代码实现。<br>最大子矩阵问题：给定一个矩阵（二维数组），其中数据有大有小，请找一个子矩阵，使得子矩阵的和最大，并输出这个和。<br>方案1：可以采用与最大子序列类似的思想来解决。如果我们确定了选择第i列和第j列之间的元素，那么在这个范围内，其实就是一个最大子序列问题。如何确定第i列和第j列可以词用暴搜的方法进行。</p>
+<p>转自：<a href="http://hi.baidu.com/jiaxiaobosuper/blog/item/5715981c8c7f54d3a686694b.html" target="_blank" rel="noopener">http://hi.baidu.com/jiaxiaobosuper/blog/item/5715981c8c7f54d3a686694b.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/05/18/e5-a4-a7-e6-95-b0-e6-8d-ae-e6-8e-92-e5-ba-8f-e6-88-96-e5-8f-96-e9-87-8d-e6-88-96-e5-8e-bb-e9-87-8d-e7-9b-b8-e5-85-b3-e9-97-ae-e9-a2-98/" data-id="cjccxdzha002ljpcreb55x4rs" class="article-share-link">Teilen</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大文件/">大文件</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/05/19/e5-87-a0-e7-a7-8d-e5-b8-b8-e8-a7-81-e7-9a-84-e6-8e-92-e5-ba-8f-e7-ae-97-e6-b3-95-e7-9a-84php-e5-ae-9e-e7-8e-b0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          几种常见的排序算法的PHP实现
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/05/17/php-e8-be-93-e5-87-ba-e4-b8-8a-e4-b8-aa-e6-9c-88-e6-9c-80-e5-90-8e-e4-b8-80-e5-a4-a9/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">PHP 输出上个月最后一天</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Kategorien</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hadoop/">Hadoop</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Html/">Html</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JQuery/">JQuery</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/Windows/">Windows</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Other/">Other</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PHP/">PHP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Qt/">Qt</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/React/">React</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-C/">C/C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux-amp-Fedora/">Linux &amp; Fedora</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ajax/">ajax</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/apache/">apache</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/composer/">composer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dex2jar/">dex2jar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/easy-install/">easy_install</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fedora/">fedora</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gentoo/">gentoo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hive/">hive</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html/">html</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ie/">ie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lavarel/">lavarel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/memcached/">memcached</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mod-wsgi/">mod_wsgi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/phpmyadmin/">phpmyadmin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/phpstorm/">phpstorm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pysvn/">pysvn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react-native/">react-native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reviewboard/">reviewboard</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rsync/">rsync</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sublime/">sublime</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vagrant/">vagrant</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vps/">vps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows8/">windows8</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xshell/">xshell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内存/">内存</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大文件/">大文件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/局域网/">局域网</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/打印机/">打印机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/正则表达式/">正则表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/键盘/">键盘</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C-C/" style="font-size: 10px;">C/C++</a> <a href="/tags/Linux/" style="font-size: 18px;">Linux</a> <a href="/tags/Linux-amp-Fedora/" style="font-size: 16px;">Linux &amp; Fedora</a> <a href="/tags/MySQL/" style="font-size: 20px;">MySQL</a> <a href="/tags/Python/" style="font-size: 14px;">Python</a> <a href="/tags/Qt/" style="font-size: 18px;">Qt</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/apache/" style="font-size: 14px;">apache</a> <a href="/tags/bootstrap/" style="font-size: 10px;">bootstrap</a> <a href="/tags/composer/" style="font-size: 10px;">composer</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/dex2jar/" style="font-size: 10px;">dex2jar</a> <a href="/tags/easy-install/" style="font-size: 10px;">easy_install</a> <a href="/tags/fedora/" style="font-size: 10px;">fedora</a> <a href="/tags/gentoo/" style="font-size: 14px;">gentoo</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/hadoop/" style="font-size: 12px;">hadoop</a> <a href="/tags/hive/" style="font-size: 12px;">hive</a> <a href="/tags/html/" style="font-size: 12px;">html</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/ie/" style="font-size: 12px;">ie</a> <a href="/tags/java/" style="font-size: 12px;">java</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/lavarel/" style="font-size: 10px;">lavarel</a> <a href="/tags/memcached/" style="font-size: 10px;">memcached</a> <a href="/tags/mod-wsgi/" style="font-size: 12px;">mod_wsgi</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/php/" style="font-size: 20px;">php</a> <a href="/tags/phpmyadmin/" style="font-size: 14px;">phpmyadmin</a> <a href="/tags/phpstorm/" style="font-size: 12px;">phpstorm</a> <a href="/tags/pysvn/" style="font-size: 10px;">pysvn</a> <a href="/tags/react/" style="font-size: 12px;">react</a> <a href="/tags/react-native/" style="font-size: 12px;">react-native</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/reviewboard/" style="font-size: 12px;">reviewboard</a> <a href="/tags/rsync/" style="font-size: 10px;">rsync</a> <a href="/tags/sublime/" style="font-size: 10px;">sublime</a> <a href="/tags/vagrant/" style="font-size: 12px;">vagrant</a> <a href="/tags/vps/" style="font-size: 10px;">vps</a> <a href="/tags/windows8/" style="font-size: 10px;">windows8</a> <a href="/tags/xshell/" style="font-size: 10px;">xshell</a> <a href="/tags/内存/" style="font-size: 10px;">内存</a> <a href="/tags/大数据/" style="font-size: 10px;">大数据</a> <a href="/tags/大文件/" style="font-size: 12px;">大文件</a> <a href="/tags/局域网/" style="font-size: 10px;">局域网</a> <a href="/tags/打印机/" style="font-size: 10px;">打印机</a> <a href="/tags/排序/" style="font-size: 10px;">排序</a> <a href="/tags/正则表达式/" style="font-size: 10px;">正则表达式</a> <a href="/tags/算法/" style="font-size: 18px;">算法</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/键盘/" style="font-size: 10px;">键盘</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">January 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">October 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">September 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">August 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07/">July 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/02/">February 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">October 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/08/">August 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/07/">July 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/05/">May 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/04/">April 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">March 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/11/">November 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/10/">October 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08/">August 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/06/">June 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/02/">February 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2008/09/">September 2008</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/01/13/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/10/26/e8-a7-a3-e5-86-b3ssh-e8-bf-9c-e7-ab-afvim-e4-b8-ad-e6-96-87-e4-b9-b1-e7-a0-81-e7-9a-84-e9-97-ae-e9-a2-98/">解决ssh 远端vim中文乱码的问题</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/10/e8-bd-ac-reactreact-native-e7-9a-84es5-es6-e5-86-99-e6-b3-95-e5-af-b9-e7-85-a7-e8-a1-a8/">[转] React/React Native 的ES5 ES6写法对照表</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/09/react-native-mac-e4-b8-8b-android-e7-8e-af-e5-a2-83-e5-8f-8aide-e9-85-8d-e7-bd-ae/">React Native : Mac 下 Android 环境及IDE配置</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/05/modern-php-e4-bc-a0-e5-80-bc-e3-80-81-e5-bc-95-e7-94-a8-e5-92-8c-e5-af-b9-e8-b1-a1-e6-a0-87-e8-af-86-e7-ac-a6/">Modern PHP : 传值、引用和对象标识符</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
