@@ -18,3 +18,4 @@ typings/
 .env
 .deploy_git/
 public/
+db.json
