@@ -9,7 +9,8 @@ date: 2014-04-10 15:31:12
 ---
 
 Solarized Dark Plus.xcs 注意每行末尾不要有空格
-`[Solarized Dark]
+```ini
+[Solarized Dark]
 text=ffffff
 cyan(bold)=93a1a1
 text(bold)=ffffff
@@ -32,4 +33,4 @@ black(bold)=073642
 [Names]
 name0=Solarized Dark
 count=1
-`
+```
