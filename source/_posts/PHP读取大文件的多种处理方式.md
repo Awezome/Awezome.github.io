@@ -14,7 +14,8 @@ date: 2014-07-27 17:55:23
 1.直接File
 如果这个大文件不算“太大”，那么就可以先用File这个方法直接把文件全部读到变量里，成为一个数组，每行为一个value。优点就是简单快速。
 
-`<?php
+```php
+<?php
 print_r(file("test.txt"));
 ?> 
 //output
@@ -24,10 +25,11 @@ Array
 [1] => Another day, another line.
 [2] => If the array picks up this line,
 [3] => then is it a pickup line?
-)`
+)
+```
 
 2.这个方法是很传统的方法，每读一行处理一行。<!--more-->
-`
+```php
 $handle = @fopen($filename, "r");
 if (!$handle) {
     exit();
@@ -40,10 +42,12 @@ if (!feof($handle)) {
     echo ("Error: unexpected fgets() fail\n");
     exit();
 }
-fclose($handle);`
+fclose($handle);
+```
 
 3.使用SPL SplFileObject , 这个好像更厉害，不过要PHP 5.1的支持。
-这个类用来对文本文件进行遍历。`
+这个类用来对文本文件进行遍历。
+```php
 <?php
 try{
     foreach( new SplFileObject('/log/php.log') as $line)
@@ -53,9 +57,10 @@ try{
     echo $e->getMessage();
 }
 ?>
-`
+```
 返回文本文件的第10行，可以这样写：
-`<?php
+```php
+<?php
 try{
     $file = new SplFileObject("/log/php.log");
     $file->seek(10);
@@ -63,10 +68,12 @@ try{
 }catch (Exception $e){
     echo $e->getMessage();
 }
-?>`
+?>
+```
 
 当然要判断当前行数是不是超过了文件总行数，获得文件的行数的方汗以。
-`<?php
+```php
+<?php
 $fp = fopen($temp_file ,'r') or die("open file failure!");
 $total_line = 0;
 if($fp){
@@ -76,10 +83,12 @@ if($fp){
     }
     fclose($fp);
 }
-?>`
+?>
+```
 
 这里有个集2，3方法的函数，可以读取几行的内容
-`public function getFileLines($filename, $startLine = 1, $endLine=50, $method='rb') {
+```php
+public function getFileLines($filename, $startLine = 1, $endLine=50, $method='rb') {
     $content = array();
     $count = $endLine - $startLine;
     if(version_compare(PHP_VERSION, '5.1.0', '>=')){/* 判断php版本（因为要用到SplFileObject，PHP>=5.1.0） */
@@ -101,6 +110,7 @@ if($fp){
         fclose($fp);
     }
     return array_filter($content); /* array_filter过滤：false,null,'' */
-}`
+}
+```
 
 相关阅读：http://www.redyun.net/technology/101.html

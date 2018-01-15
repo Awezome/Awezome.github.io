@@ -9,13 +9,7 @@ categories:
 date: 2014-08-25 11:18:10
 ---
 
-PhpStorm is my code editor of choice and it’s robust. Almost to powerful because it has an immense set of features and settings. I wanted to show you some of the tips and tricks I have learned over the past few months and my workflow.
-
 Keymap
-
-PhpStorm allows you to rebind every keybinding and even add bindings to features that are not mapped. This means you can set it up to perfectly match your existing workflow, and if moving from another editor you will feel right at home with just a few minutes of setup time.
-
-Way back in 2001 is when I first started down the rabbit hole of web development. Since that time I’ve used a handful of primary editors with Sublime being the latest. I am so accustomed to it that I duplicated Sublimes keybindings to PhpStorm. Here is a full list of all my customized keys:
 
 Command-p – Search Everywhere
 Command-r – Methods in file
@@ -24,7 +18,7 @@ Command-3 – Open the integrated terminal
 As you can see I didn’t customize a lot, just made it more comfortable.
 
 Preferences
-<!--more-->
+
 
 The preferences are vast, you can customize so much that it’s impossible to cover everything. Here are the custom changes I settled on:
 

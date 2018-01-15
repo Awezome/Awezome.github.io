@@ -31,7 +31,7 @@ date: 2016-06-05 15:48:48
 ### 引用和标识符关系
 
 下面通过例子来说明引用和标识符的关系
-`
+```php
 $instance1 = new Test();
 $instance2 = $instance1;
 $instance3 = & $instance1;
@@ -42,21 +42,23 @@ var_dump($instance3 instanceof Test); // True
 $instance3 = new AnotherTest();
 var_dump($instance1 instanceof AnotherTest); // True
 var_dump($instance2 instanceof AnotherTest); // False
-var_dump($instance3 instanceof AnotherTest); // True`
+var_dump($instance3 instanceof AnotherTest); // True
+```
 
 $instance3和$instance1互为引用，改变了$instance3，$instance1也会改变。
 (1<=>3)=[id]->address
 (2)=[id_copy]->address
-<!--more-->
 
-`$instance1 = new Test();
+
+```php
+$instance1 = new Test();
 $instance2 = $instance1;
 $instance3 = & $instance1;
 $instance2 = new AnotherTest();
 var_dump($instance1 instanceof AnotherTest); // False
 var_dump($instance2 instanceof AnotherTest); // True
 var_dump($instance3 instanceof AnotherTest); // False
-`
+```
 改变2之前
 (1<=>3)=[id]->address
 (2)=[id_copy]->address
@@ -64,10 +66,12 @@ var_dump($instance3 instanceof AnotherTest); // False
 (1<=>3)=[id]->address
 (2)=[id_new]->address_new
 
-`$instance1 = new StdClass();
+```php
+$instance1 = new StdClass();
 $instance2 = $instance1;
 $instance1->my_property = 1;
-var_dump($instance2->my_property); // Output: 1`
+var_dump($instance2->my_property); // Output: 1
+```
 
 改变了1的内容，也就是改变了address的内容，1，2标识符指向同一个地址，所以2的内容也会改变。
 

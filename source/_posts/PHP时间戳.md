@@ -7,6 +7,7 @@ date: 2012-11-06 15:27:51
 tags:
 ---
 
+```php
 $t = time();
 $t1 = mktime(0,0,0,date(“m”,$t),date(“d”,$t),date(“Y”,$t));
 $t2 = mktime(0,0,0,date(“m”,$t),1,date(“Y”,$t));
@@ -35,7 +36,8 @@ echo date(“今月终点 Y-m-d H:i:s”,$e2).” $e2
 echo date(“上月终点 Y-m-d H:i:s”,$e3).” $e3
 ”;
 echo date(“今年终点 Y-m-d H:i:s”,$e4).” $e4
-”;<!--more-->
+”;
+```
 结果：
 当前 2011-05-24 15:42:55 1306222975
 今天起点 2011-05-24 00:00:00 1306166400
@@ -47,24 +49,15 @@ echo date(“今年终点 Y-m-d H:i:s”,$e4).” $e4
 上月终点 2011-04-30 23:59:59 1304179199
 今年终点 2011-12-31 23:59:59 1325347199
 
-echo "今天:".date("Y-m-d")."
-";
-echo "昨天:".date("Y-m-d",strtotime("-1 day")), "
-";
-echo "明天:".date("Y-m-d",strtotime("+1 day")). "
-";
-
-echo "一周后:".date("Y-m-d",strtotime("+1 week")). "
-";
-echo "一周零两天四小时两秒后:".date("Y-m-d G:H:s",strtotime("+1 week 2 days 4 hours 2 seconds")). "
-";
-echo "下个星期四:".date("Y-m-d",strtotime("next Thursday")). "
-";
-echo "上个周一:".date("Y-m-d",strtotime("last Monday"))."
-";
-echo "一个月前:".date("Y-m-d",strtotime("last month"))."
-";
-echo "一个月后:".date("Y-m-d",strtotime("+1 month"))."
-";
-echo "十年后:".date("Y-m-d",strtotime("+10 year"))."
-";
+```php
+echo "今天:".date("Y-m-d")."";
+echo "昨天:".date("Y-m-d",strtotime("-1 day")), "";
+echo "明天:".date("Y-m-d",strtotime("+1 day")). "";
+echo "一周后:".date("Y-m-d",strtotime("+1 week")). "";
+echo "一周零两天四小时两秒后:".date("Y-m-d G:H:s",strtotime("+1 week 2 days 4 hours 2 seconds")). "";
+echo "下个星期四:".date("Y-m-d",strtotime("next Thursday")). "";
+echo "上个周一:".date("Y-m-d",strtotime("last Monday"))."";
+echo "一个月前:".date("Y-m-d",strtotime("last month"))."";
+echo "一个月后:".date("Y-m-d",strtotime("+1 month"))."";
+echo "十年后:".date("Y-m-d",strtotime("+10 year"))."";
+```

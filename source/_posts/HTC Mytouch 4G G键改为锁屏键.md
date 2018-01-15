@@ -12,5 +12,7 @@ tags:
  ”，按键上显示“挂载读写（Mount R/O）”
  3\. 长点文件glacier-keypad.kl    ，选择以 “文本编辑方式打开”
  4.key 217  改为POWER    后加 WAKE_DROPPED
-    key 183 改为 ENDCALL 后加 WAKE_DROPPED
+```
+key 183 改为 ENDCALL 后加 WAKE_DROPPED
+```
 from:http://bbs.gfan.com/android-3946662-1-1.html

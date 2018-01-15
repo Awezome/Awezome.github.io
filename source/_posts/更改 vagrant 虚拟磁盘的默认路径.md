@@ -32,9 +32,13 @@ C:\Users\user_name\.vagrant.d\boxes 里，并解成 packer-fedora-20-i386-disk1.
 说到这我有一个疑问，官方的给的方法是新建环境变量VAGRANT_HOME，指向新的路径，并将 C:\Users\user_name\.vagrant.d 移动到新的位置。这招好像 linux 、mac 都好使，但是我的机器 win8.1 x64 好像不好使，我的方法是直接改原文件。
 
 在这里，这个具体版本具体安装路径自己改
-`D:\HashiCorp\Vagrant\embedded\gems\gems\vagrant-1.5.3\lib\vagrant\environment.rb `，
+```
+D:\HashiCorp\Vagrant\embedded\gems\gems\vagrant-1.5.3\lib\vagrant\environment.rb 
+```
 第 119 行改成
-`@home_path = Util::Platform.fs_real_path("D:/vagrant/home/")`
+```
+@home_path = Util::Platform.fs_real_path("D:/vagrant/home/")
+```
 然后再把 C:\Users\user_name\.vagrant.d 里的文件移到 D:/vagrant/home/ 里面，重启 vagrant 就可以了。
 
 另外说一句，先备份，再操作。

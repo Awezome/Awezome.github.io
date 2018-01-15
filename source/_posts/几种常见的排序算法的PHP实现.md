@@ -8,7 +8,8 @@ categories:
 date: 2014-05-19 10:03:30
 ---
 
-`static function Bubble($arr) {
+```php
+static function Bubble($arr) {
 $num = count($arr);
 for ($i = 1; $i < $num; $i++) {
     for ($j = $num - 1; $j >= $i ; $j--) {
@@ -18,9 +19,11 @@ for ($i = 1; $i < $num; $i++) {
     }
 }
 return $arr;
-}`
+}
+```
 
-`static public function selection (&$data){
+```php
+static public function selection (&$data){
     $size=count($data);
     for($i=0;$i<$size;$i++){
         $min=$i;
@@ -32,9 +35,10 @@ return $arr;
         self::exch($data,$i,$min);
     }  
 }
-`<!--more-->
+```
 
-`static function insertion(&$data){
+```php
+static function insertion(&$data){
     $size=count($data);
     for($i=1;$i<$size;$i++){
         for($j=$i;$j>0 $$ $a[$j]<$a[$j-1];$j--){
@@ -42,8 +46,9 @@ return $arr;
         }
     }
 }
-`
-`static function shell(&$data){
+```
+```php
+static function shell(&$data){
     $size=count($data);
     $h=1;
     while($h<$size/3){
@@ -57,13 +62,14 @@ return $arr;
         }
         $h=$h/3;
     }
-}`
-`
+}
+```
+```php
 static function quick(array &$data,$lo,$hi){
     if($hi<=$lo){
         return ;
     }
-
+    
     //partition
     $i=$lo;
     $j=$hi+1;
@@ -86,16 +92,17 @@ static function quick(array &$data,$lo,$hi){
     }
     self::each($data,$lo,$j);
     $k=$j;
-
+    
     //
     quick($data,$lo,$k-1);
     quick($data,$k+1,$hi);
 }
-`
+```
 
-`static function exch(&$data,$i,$j){
+```php
+static function exch(&$data,$i,$j){
     $tmp=$data[$i];
     $data[$i]=$data[$j];
     $data[$j]=$tmp;
 }   
-`
+```

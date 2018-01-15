@@ -8,7 +8,8 @@ categories:
 date: 2014-10-16 17:20:18
 ---
 
-`function SetWinHeight(obj) {
+```js
+function SetWinHeight(obj) {
     var win = obj;
     if (document.getElementById) {
         if (win && !window.opera) {
@@ -18,6 +19,7 @@ date: 2014-10-16 17:20:18
                 win.height = win.Document.body.scrollHeight;
         }
     }
-}`
+}
 
-`<iframe src="backtop.html" frameborder="0" scrolling="no" id="external-frame" onload="SetWinHeight(this)"></iframe>`
+<iframe src="backtop.html" frameborder="0" scrolling="no" id="external-frame" onload="SetWinHeight(this)"></iframe>
+```

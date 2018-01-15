@@ -14,18 +14,18 @@ date: 2014-05-09 14:43:07
 
 我的方法是，直接用php输出一个相应的html结构，我用的是一定结构的table,再通过css画画线就搞定了。具体的实现方法直接看代码就ok了。有问题可以讨论。
 
-github : [https://github.com/Awesomez/PHP-to-OrgChart](https://github.com/Awesomez/PHP-to-OrgChart)
+github : [https://github.com/Awezome/PHP-to-OrgChart](https://github.com/Awesomez/PHP-to-OrgChart)
 
-![sreenshot](/wp-content/uploads/2014/05/5e0a675a93cceaa1884b150f4ba2306e.png)
-<!--more-->
+![sreenshot](https://raw.githubusercontent.com/Awesomez/PHP-to-OrgChart/master/sreenshot.PNG)
+
 
 纯Html实现看这里
-https://github.com/Awesomez/PHP-to-OrgChart/blob/master/demo/pureHtml.html
+https://github.com/Awezome/PHP-to-OrgChart/blob/master/demo/pureHtml.html
 通过php数组生成看这里
-https://github.com/Awesomez/PHP-to-OrgChart/blob/master/demo/simple.php
+https://github.com/Awezome/PHP-to-OrgChart/blob/master/demo/simple.php
 
 php的使用方法
-`
+```php
 include '../src/PHPtoOrgChart.php';
 $data=array(
     'a'=>array(
@@ -58,9 +58,7 @@ $data=array(
         ),
     ),
 );
-echo '
-<div class="orgchart">';
+echo '<div class="orgchart">';
 PHPtoOrgChart($data);
-echo '</div>
-';
-`
+echo '</div>';
+```
