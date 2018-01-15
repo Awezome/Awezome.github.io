@@ -81,3 +81,7 @@ deploy:
   repo: git@github.com:Awezome/Awezome.github.io.git
   branch: master
 
+excerpt:
+  depth: 8
+  excerpt_excludes: []
+  more_excludes: []
