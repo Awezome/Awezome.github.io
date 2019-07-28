@@ -178,7 +178,7 @@
 <li>使用 QSingleApplication 。</li>
 </ol>
 <p>QSingleApplication 是 Qt 提供的一个 solution ，它不包含在 Qt 的 library 中。遵循 LGPL 协议。关于如何使用，下载了这个 solution 之后，里面有例子。还有， QtCreator 中还用到了它。你也可以翻一番 QtCreator 的源代码。</p>
-<ol>
+<ol start="2">
 <li>使用共享内存。</li>
 </ol>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 确保只运行一次</span></span><br><span class="line"></span><br><span class="line"><span class="function">QSystemSemaphore <span class="title">sema</span><span class="params">(<span class="string">"JAMKey"</span>,<span class="number">1</span>,QSystemSemaphore::Open)</span></span>;</span><br><span class="line"></span><br><span class="line">sema.acquire();<span class="comment">// 在临界区操作共享内存 SharedMemory</span></span><br><span class="line"></span><br><span class="line"><span class="function">QSharedMemory <span class="title">mem</span><span class="params">(<span class="string">"SystemObject"</span>)</span></span>;<span class="comment">// 全局对象名</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!mem.create(<span class="number">1</span>))<span class="comment">// 如果全局对象以存在则退出</span></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">QMessageBox::information(<span class="number">0</span>, MESSAGEBOXTXT,<span class="string">"An instance has already been running."</span>);</span><br><span class="line"></span><br><span class="line">sema.release();<span class="comment">// 如果是 Unix 系统，会自动释放。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sema.release();<span class="comment">// 临界区</span></span><br></pre></td></tr></table></figure>
@@ -344,7 +344,9 @@
             <div class="article-seg"></div>
 
             
-            <p>. 打开R.E.管理器，打开到/system/usr/keylayout<br> 2. 挂载读/写(R/W) ，最上面有个按键，就是左侧文字显示为“挂载为读写（R/W）<br> ”，按键上显示“挂载读写（Mount R/O）”<br> 3. 长点文件glacier-keypad.kl    ，选择以 “文本编辑方式打开”<br> 4.key 217  改为POWER    后加 WAKE_DROPPED<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">key 183 改为 ENDCALL 后加 WAKE_DROPPED</span><br></pre></td></tr></table></figure></p>
+            <p>. 打开R.E.管理器，打开到/system/usr/keylayout<br> 2. 挂载读/写(R/W) ，最上面有个按键，就是左侧文字显示为“挂载为读写（R/W）<br> ”，按键上显示“挂载读写（Mount R/O）”<br> 3. 长点文件glacier-keypad.kl    ，选择以 “文本编辑方式打开”<br> 4.key 217  改为POWER    后加 WAKE_DROPPED</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">key 183 改为 ENDCALL 后加 WAKE_DROPPED</span><br></pre></td></tr></table></figure>
+
 <p>from:<a href="http://bbs.gfan.com/android-3946662-1-1.html" target="_blank" rel="noopener">http://bbs.gfan.com/android-3946662-1-1.html</a></p>
 
             
@@ -778,11 +780,16 @@
 </li>
 <li><p>在终端运行cd 切换到wubi98.txt所在的文件夹</p>
 </li>
-<li>运行ibus-table-createdb -s wubi98.txt编译wubi98.db文件</li>
-<li>运行sudo cp wubi98.db /usr/share/ibus-table/tables 把wubi98.db复制到系统位置</li>
-<li>运行cd 切换到解压后的icons文件夹</li>
-<li>运行sudo cp wubi98.svg /usr/share/ibus-table/icons 复制图标</li>
-<li>重启ibus首选项输入选择输入法汉语五笔98添加，再重启ibus。</li>
+<li><p>运行ibus-table-createdb -s wubi98.txt编译wubi98.db文件</p>
+</li>
+<li><p>运行sudo cp wubi98.db /usr/share/ibus-table/tables 把wubi98.db复制到系统位置</p>
+</li>
+<li><p>运行cd 切换到解压后的icons文件夹</p>
+</li>
+<li><p>运行sudo cp wubi98.svg /usr/share/ibus-table/icons 复制图标</p>
+</li>
+<li><p>重启ibus首选项输入选择输入法汉语五笔98添加，再重启ibus。</p>
+</li>
 </ol>
 <p>后又参照“将海峰五笔码表转到ibus下使用”（<a href="http://blog.linjian.org/articles/sunwb-ibus/）把海峰五笔98也安装成功。" target="_blank" rel="noopener">http://blog.linjian.org/articles/sunwb-ibus/）把海峰五笔98也安装成功。</a><br> 下面网上安装方法</p>
 <ol>

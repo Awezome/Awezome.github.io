@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://awezome.top">
   <title>Java Substring 两个参数的坑 | AwezomeTop</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="搞了一天的elasticsearch，中间过程确是用大量时间处理java的几个字符串的问题。本来以为 java 里 String substring(int beginIndex, int endIndex) 的开始位置比0小时会自动为0，第二个参数大于总长度时会自动填长度，结果不是，为什么不这样做？ 最后还是看源码吧：12345678910111213public String substrin">
+  <meta name="description" content="搞了一天的elasticsearch，中间过程确是用大量时间处理java的几个字符串的问题。本来以为 java 里 String substring(int beginIndex, int endIndex) 的开始位置比0小时会自动为0，第二个参数大于总长度时会自动填长度，结果不是，为什么不这样做？ 最后还是看源码吧： 12345678910111213public String substri">
 <meta name="keywords" content="java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java Substring 两个参数的坑">
 <meta property="og:url" content="http://awezome.top/201406/Java Substring 两个参数的坑/index.html">
 <meta property="og:site_name" content="AwezomeTop">
-<meta property="og:description" content="搞了一天的elasticsearch，中间过程确是用大量时间处理java的几个字符串的问题。本来以为 java 里 String substring(int beginIndex, int endIndex) 的开始位置比0小时会自动为0，第二个参数大于总长度时会自动填长度，结果不是，为什么不这样做？ 最后还是看源码吧：12345678910111213public String substrin">
+<meta property="og:description" content="搞了一天的elasticsearch，中间过程确是用大量时间处理java的几个字符串的问题。本来以为 java 里 String substring(int beginIndex, int endIndex) 的开始位置比0小时会自动为0，第二个参数大于总长度时会自动填长度，结果不是，为什么不这样做？ 最后还是看源码吧： 12345678910111213public String substri">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-07-28T13:18:59.082Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java Substring 两个参数的坑">
-<meta name="twitter:description" content="搞了一天的elasticsearch，中间过程确是用大量时间处理java的几个字符串的问题。本来以为 java 里 String substring(int beginIndex, int endIndex) 的开始位置比0小时会自动为0，第二个参数大于总长度时会自动填长度，结果不是，为什么不这样做？ 最后还是看源码吧：12345678910111213public String substrin">
+<meta name="twitter:description" content="搞了一天的elasticsearch，中间过程确是用大量时间处理java的几个字符串的问题。本来以为 java 里 String substring(int beginIndex, int endIndex) 的开始位置比0小时会自动为0，第二个参数大于总长度时会自动填长度，结果不是，为什么不这样做？ 最后还是看源码吧： 12345678910111213public String substri">
   
     <link rel="alternative" href="/atom.xml" title="AwezomeTop" type="application/atom+xml">
   
@@ -175,8 +175,8 @@
 
             
             <p>搞了一天的elasticsearch，中间过程确是用大量时间处理java的几个字符串的问题。本来以为 java 里 String substring(int beginIndex, int endIndex) 的开始位置比0小时会自动为0，第二个参数大于总长度时会自动填长度，结果不是，为什么不这样做？</p>
-<p>最后还是看源码吧：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">substring</span><span class="params">(<span class="keyword">int</span> beginIndex, <span class="keyword">int</span> endIndex)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (beginIndex &lt; <span class="number">0</span>) &#123;</span><br><span class="line">	    <span class="keyword">throw</span> <span class="keyword">new</span> StringIndexOutOfBoundsException(beginIndex);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (endIndex &gt; count) &#123;</span><br><span class="line">	    <span class="keyword">throw</span> <span class="keyword">new</span> StringIndexOutOfBoundsException(endIndex);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (beginIndex &gt; endIndex) &#123;</span><br><span class="line">	    <span class="keyword">throw</span> <span class="keyword">new</span> StringIndexOutOfBoundsException(endIndex - beginIndex);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ((beginIndex == <span class="number">0</span>) &amp;&amp; (endIndex == count)) ? <span class="keyword">this</span> :</span><br><span class="line">	    <span class="keyword">new</span> String(offset + beginIndex, endIndex - beginIndex, value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
+<p>最后还是看源码吧：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">substring</span><span class="params">(<span class="keyword">int</span> beginIndex, <span class="keyword">int</span> endIndex)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (beginIndex &lt; <span class="number">0</span>) &#123;</span><br><span class="line">	    <span class="keyword">throw</span> <span class="keyword">new</span> StringIndexOutOfBoundsException(beginIndex);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (endIndex &gt; count) &#123;</span><br><span class="line">	    <span class="keyword">throw</span> <span class="keyword">new</span> StringIndexOutOfBoundsException(endIndex);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (beginIndex &gt; endIndex) &#123;</span><br><span class="line">	    <span class="keyword">throw</span> <span class="keyword">new</span> StringIndexOutOfBoundsException(endIndex - beginIndex);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ((beginIndex == <span class="number">0</span>) &amp;&amp; (endIndex == count)) ? <span class="keyword">this</span> :</span><br><span class="line">	    <span class="keyword">new</span> String(offset + beginIndex, endIndex - beginIndex, value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
             
 
             

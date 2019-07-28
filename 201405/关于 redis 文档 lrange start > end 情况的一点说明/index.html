@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://awezome.top">
   <title>关于 redis 文档 lrange start &gt; end 情况的一点说明 | AwezomeTop</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="redis 官方文档里对 lrange start &amp;gt; end 说了这样一句话  If start is larger than the end of the list, an empty list is returned.  就是说  start &amp;gt; end 就会返回一个空list ,不过这里还有一种特殊情况。就是end 为负数时，比如 1lrange ilist 0 -1 那么它会">
+  <meta name="description" content="redis 官方文档里对 lrange start &amp;gt; end 说了这样一句话  If start is larger than the end of the list, an empty list is returned.  就是说  start &amp;gt; end 就会返回一个空list ,不过这里还有一种特殊情况。就是end 为负数时，比如 1lrange ilist 0 -1  那么它">
 <meta name="keywords" content="redis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于 redis 文档 lrange start &gt; end 情况的一点说明">
 <meta property="og:url" content="http://awezome.top/201405/关于 redis 文档 lrange start > end 情况的一点说明/index.html">
 <meta property="og:site_name" content="AwezomeTop">
-<meta property="og:description" content="redis 官方文档里对 lrange start &amp;gt; end 说了这样一句话  If start is larger than the end of the list, an empty list is returned.  就是说  start &amp;gt; end 就会返回一个空list ,不过这里还有一种特殊情况。就是end 为负数时，比如 1lrange ilist 0 -1 那么它会">
+<meta property="og:description" content="redis 官方文档里对 lrange start &amp;gt; end 说了这样一句话  If start is larger than the end of the list, an empty list is returned.  就是说  start &amp;gt; end 就会返回一个空list ,不过这里还有一种特殊情况。就是end 为负数时，比如 1lrange ilist 0 -1  那么它">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-07-28T13:18:59.087Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于 redis 文档 lrange start &gt; end 情况的一点说明">
-<meta name="twitter:description" content="redis 官方文档里对 lrange start &amp;gt; end 说了这样一句话  If start is larger than the end of the list, an empty list is returned.  就是说  start &amp;gt; end 就会返回一个空list ,不过这里还有一种特殊情况。就是end 为负数时，比如 1lrange ilist 0 -1 那么它会">
+<meta name="twitter:description" content="redis 官方文档里对 lrange start &amp;gt; end 说了这样一句话  If start is larger than the end of the list, an empty list is returned.  就是说  start &amp;gt; end 就会返回一个空list ,不过这里还有一种特殊情况。就是end 为负数时，比如 1lrange ilist 0 -1  那么它">
   
     <link rel="alternative" href="/atom.xml" title="AwezomeTop" type="application/atom+xml">
   
@@ -180,8 +180,10 @@
 </blockquote>
 <p>就是说  start &gt; end 就会返回一个空list ,不过这里还有一种特殊情况。就是end 为负数时，比如</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lrange ilist 0 -1</span><br></pre></td></tr></table></figure>
+
 <p>那么它会返回整个 list ,这里先不考虑极端情况。就和 an empty list is returned  相冲突，这是其中一种理解方式。另一种是负数在list里不是指小于0的自然数，而是指list尾端的数，比如</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; RPUSH lst 1 3 5 7 9</span><br><span class="line"> (integer) 5</span><br><span class="line"></span><br><span class="line">127.0.0.1:6379&gt; LRANGE lst 0 -1</span><br><span class="line">1) "1"</span><br><span class="line">2) "3"</span><br><span class="line">3) "5"</span><br><span class="line">4) "7"</span><br><span class="line">5) "9"</span><br></pre></td></tr></table></figure>
+
 <p>那么此时-1指的是5, 也就符合了 0 &lt;-1 =5 的情况，文档就没有错了。<br>总的来说，还是文档有要严谨的地方。</p>
 <p>p.s. 后来发现 end 包括 stop 及 -1 的情况，文档没有问题。</p>
 

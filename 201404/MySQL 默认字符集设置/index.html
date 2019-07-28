@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://awezome.top">
   <title>MySQL 默认字符集设置 | AwezomeTop</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在 Fedora 安装完 MySQL 后编字符编码可能是非 utf8的，这样以来像 Review Board 没设置默认的就会按非 utf8 默认字符集来安装，就不能很好的显示中文，所以安装完 MySQL 后要进行相应的编码设置。 命令行模式进入MySQL，敲入status命令:1234Server characterset:	latin1Db     characterset:	latin1Cl">
+  <meta name="description" content="在 Fedora 安装完 MySQL 后编字符编码可能是非 utf8的，这样以来像 Review Board 没设置默认的就会按非 utf8 默认字符集来安装，就不能很好的显示中文，所以安装完 MySQL 后要进行相应的编码设置。 命令行模式进入MySQL，敲入status命令: 1234Server characterset:	latin1Db     characterset:	latin1C">
 <meta name="keywords" content="MySQL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL 默认字符集设置">
 <meta property="og:url" content="http://awezome.top/201404/MySQL 默认字符集设置/index.html">
 <meta property="og:site_name" content="AwezomeTop">
-<meta property="og:description" content="在 Fedora 安装完 MySQL 后编字符编码可能是非 utf8的，这样以来像 Review Board 没设置默认的就会按非 utf8 默认字符集来安装，就不能很好的显示中文，所以安装完 MySQL 后要进行相应的编码设置。 命令行模式进入MySQL，敲入status命令:1234Server characterset:	latin1Db     characterset:	latin1Cl">
+<meta property="og:description" content="在 Fedora 安装完 MySQL 后编字符编码可能是非 utf8的，这样以来像 Review Board 没设置默认的就会按非 utf8 默认字符集来安装，就不能很好的显示中文，所以安装完 MySQL 后要进行相应的编码设置。 命令行模式进入MySQL，敲入status命令: 1234Server characterset:	latin1Db     characterset:	latin1C">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-07-28T13:18:59.083Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL 默认字符集设置">
-<meta name="twitter:description" content="在 Fedora 安装完 MySQL 后编字符编码可能是非 utf8的，这样以来像 Review Board 没设置默认的就会按非 utf8 默认字符集来安装，就不能很好的显示中文，所以安装完 MySQL 后要进行相应的编码设置。 命令行模式进入MySQL，敲入status命令:1234Server characterset:	latin1Db     characterset:	latin1Cl">
+<meta name="twitter:description" content="在 Fedora 安装完 MySQL 后编字符编码可能是非 utf8的，这样以来像 Review Board 没设置默认的就会按非 utf8 默认字符集来安装，就不能很好的显示中文，所以安装完 MySQL 后要进行相应的编码设置。 命令行模式进入MySQL，敲入status命令: 1234Server characterset:	latin1Db     characterset:	latin1C">
   
     <link rel="alternative" href="/atom.xml" title="AwezomeTop" type="application/atom+xml">
   
@@ -175,10 +175,16 @@
 
             
             <p>在 Fedora 安装完 MySQL 后编字符编码可能是非 utf8的，这样以来像 Review Board 没设置默认的就会按非 utf8 默认字符集来安装，就不能很好的显示中文，所以安装完 MySQL 后要进行相应的编码设置。</p>
-<p>命令行模式进入MySQL，敲入status命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Server characterset:	latin1</span><br><span class="line">Db     characterset:	latin1</span><br><span class="line">Client characterset:	utf8</span><br><span class="line">Conn.  characterset:	utf8</span><br></pre></td></tr></table></figure></p>
-<p>有两个latin1 ，我们要把它干掉：<br>停止<br>MySQL Server<br>打开<br>/etc/my.cnf.d/ 有的是（/etc/mysql/my.cnf）<br>设置如下：<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[client]</span></span><br><span class="line"><span class="attr">default-character-set</span> = utf8</span><br><span class="line"><span class="section">[mysqld]</span></span><br><span class="line"><span class="attr">character_set_server</span> = utf8 </span><br><span class="line"><span class="attr">init_connect</span>=<span class="string">'SET NAMES utf8'</span></span><br></pre></td></tr></table></figure></p>
+<p>命令行模式进入MySQL，敲入status命令:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Server characterset:	latin1</span><br><span class="line">Db     characterset:	latin1</span><br><span class="line">Client characterset:	utf8</span><br><span class="line">Conn.  characterset:	utf8</span><br></pre></td></tr></table></figure>
+
+<p>有两个latin1 ，我们要把它干掉：<br>停止<br>MySQL Server<br>打开<br>/etc/my.cnf.d/ 有的是（/etc/mysql/my.cnf）<br>设置如下：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[client]</span></span><br><span class="line"><span class="attr">default-character-set</span> = utf8</span><br><span class="line"><span class="section">[mysqld]</span></span><br><span class="line"><span class="attr">character_set_server</span> = utf8 </span><br><span class="line"><span class="attr">init_connect</span>=<span class="string">'SET NAMES utf8'</span></span><br></pre></td></tr></table></figure>
+
 <p>保存后退出<br>如果启动失败，用 character_set_server = utf8 这个试试</p>
-<p>重启mysql再status<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Server characterset:	utf8</span><br><span class="line">Db     characterset:	utf8</span><br><span class="line">Client characterset:	utf8</span><br><span class="line">Conn.  characterset:	utf8</span><br></pre></td></tr></table></figure></p>
+<p>重启mysql再status</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Server characterset:	utf8</span><br><span class="line">Db     characterset:	utf8</span><br><span class="line">Client characterset:	utf8</span><br><span class="line">Conn.  characterset:	utf8</span><br></pre></td></tr></table></figure>
+
 
             
 

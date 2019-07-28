@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://awezome.top">
   <title>PHP 输出上个月最后一天 | AwezomeTop</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="上个月第一天很显然可以这样用：1date(&apos;Y-m-01&apos;, strtotime(&apos;-1 month&apos;)); 上个月最后一天可以这样用1date(&apos;Y-m-t&apos;, strtotime(&apos;-1 month&apos;)); 这样感觉使用起来很神奇，不过还是strtotime的作用，看看手册上还有哪些用法。1234567echo strtotime(&quot;now&quot;), &quot;\n&quot;;echo strtotime(&quot;10">
+  <meta name="description" content="上个月第一天很显然可以这样用： 1date(&apos;Y-m-01&apos;, strtotime(&apos;-1 month&apos;));  上个月最后一天可以这样用 1date(&apos;Y-m-t&apos;, strtotime(&apos;-1 month&apos;));  这样感觉使用起来很神奇，不过还是strtotime的作用，看看手册上还有哪些用法。 1234567echo strtotime(&quot;now&quot;), &quot;\n&quot;;echo strtotim">
 <meta name="keywords" content="php">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PHP 输出上个月最后一天">
 <meta property="og:url" content="http://awezome.top/201405/PHP 输出上个月最后一天/index.html">
 <meta property="og:site_name" content="AwezomeTop">
-<meta property="og:description" content="上个月第一天很显然可以这样用：1date(&apos;Y-m-01&apos;, strtotime(&apos;-1 month&apos;)); 上个月最后一天可以这样用1date(&apos;Y-m-t&apos;, strtotime(&apos;-1 month&apos;)); 这样感觉使用起来很神奇，不过还是strtotime的作用，看看手册上还有哪些用法。1234567echo strtotime(&quot;now&quot;), &quot;\n&quot;;echo strtotime(&quot;10">
+<meta property="og:description" content="上个月第一天很显然可以这样用： 1date(&apos;Y-m-01&apos;, strtotime(&apos;-1 month&apos;));  上个月最后一天可以这样用 1date(&apos;Y-m-t&apos;, strtotime(&apos;-1 month&apos;));  这样感觉使用起来很神奇，不过还是strtotime的作用，看看手册上还有哪些用法。 1234567echo strtotime(&quot;now&quot;), &quot;\n&quot;;echo strtotim">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-07-28T13:18:59.084Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PHP 输出上个月最后一天">
-<meta name="twitter:description" content="上个月第一天很显然可以这样用：1date(&apos;Y-m-01&apos;, strtotime(&apos;-1 month&apos;)); 上个月最后一天可以这样用1date(&apos;Y-m-t&apos;, strtotime(&apos;-1 month&apos;)); 这样感觉使用起来很神奇，不过还是strtotime的作用，看看手册上还有哪些用法。1234567echo strtotime(&quot;now&quot;), &quot;\n&quot;;echo strtotime(&quot;10">
+<meta name="twitter:description" content="上个月第一天很显然可以这样用： 1date(&apos;Y-m-01&apos;, strtotime(&apos;-1 month&apos;));  上个月最后一天可以这样用 1date(&apos;Y-m-t&apos;, strtotime(&apos;-1 month&apos;));  这样感觉使用起来很神奇，不过还是strtotime的作用，看看手册上还有哪些用法。 1234567echo strtotime(&quot;now&quot;), &quot;\n&quot;;echo strtotim">
   
     <link rel="alternative" href="/atom.xml" title="AwezomeTop" type="application/atom+xml">
   
@@ -174,10 +174,14 @@
             <div class="article-seg"></div>
 
             
-            <p>上个月第一天很显然可以这样用：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">date(<span class="string">'Y-m-01'</span>, strtotime(<span class="string">'-1 month'</span>));</span><br></pre></td></tr></table></figure></p>
-<p>上个月最后一天可以这样用<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">date(<span class="string">'Y-m-t'</span>, strtotime(<span class="string">'-1 month'</span>));</span><br></pre></td></tr></table></figure></p>
-<p>这样感觉使用起来很神奇，不过还是strtotime的作用，看看手册上还有哪些用法。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">echo</span> strtotime(<span class="string">"now"</span>), <span class="string">"\n"</span>;</span><br><span class="line"><span class="keyword">echo</span> strtotime(<span class="string">"10 September 2000"</span>), <span class="string">"\n"</span>;</span><br><span class="line"><span class="keyword">echo</span> strtotime(<span class="string">"+1 day"</span>), <span class="string">"\n"</span>;</span><br><span class="line"><span class="keyword">echo</span> strtotime(<span class="string">"+1 week"</span>), <span class="string">"\n"</span>;</span><br><span class="line"><span class="keyword">echo</span> strtotime(<span class="string">"+1 week 2 days 4 hours 2 seconds"</span>), <span class="string">"\n"</span>;</span><br><span class="line"><span class="keyword">echo</span> strtotime(<span class="string">"next Thursday"</span>), <span class="string">"\n"</span>;</span><br><span class="line"><span class="keyword">echo</span> strtotime(<span class="string">"last Monday"</span>), <span class="string">"\n"</span>;</span><br></pre></td></tr></table></figure></p>
+            <p>上个月第一天很显然可以这样用：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">date(<span class="string">'Y-m-01'</span>, strtotime(<span class="string">'-1 month'</span>));</span><br></pre></td></tr></table></figure>
 
+<p>上个月最后一天可以这样用</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">date(<span class="string">'Y-m-t'</span>, strtotime(<span class="string">'-1 month'</span>));</span><br></pre></td></tr></table></figure>
+
+<p>这样感觉使用起来很神奇，不过还是strtotime的作用，看看手册上还有哪些用法。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">echo</span> strtotime(<span class="string">"now"</span>), <span class="string">"\n"</span>;</span><br><span class="line"><span class="keyword">echo</span> strtotime(<span class="string">"10 September 2000"</span>), <span class="string">"\n"</span>;</span><br><span class="line"><span class="keyword">echo</span> strtotime(<span class="string">"+1 day"</span>), <span class="string">"\n"</span>;</span><br><span class="line"><span class="keyword">echo</span> strtotime(<span class="string">"+1 week"</span>), <span class="string">"\n"</span>;</span><br><span class="line"><span class="keyword">echo</span> strtotime(<span class="string">"+1 week 2 days 4 hours 2 seconds"</span>), <span class="string">"\n"</span>;</span><br><span class="line"><span class="keyword">echo</span> strtotime(<span class="string">"next Thursday"</span>), <span class="string">"\n"</span>;</span><br><span class="line"><span class="keyword">echo</span> strtotime(<span class="string">"last Monday"</span>), <span class="string">"\n"</span>;</span><br></pre></td></tr></table></figure>
             
 
             

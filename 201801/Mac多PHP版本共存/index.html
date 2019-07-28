@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://awezome.top">
   <title>Mac多PHP版本共存 | AwezomeTop</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="先安装 php 123brew install php56brew unlink php56brew install php71 主要用到 php-version 扩展，执行php-version可以查看和切换当前使用的版本和未使用的版本 1234brew install php-versionsource $(brew --prefix php-version)/php-version.shph">
+  <meta name="description" content="先安装 php 123brew install php56brew unlink php56brew install php71  主要用到 php-version 扩展，执行php-version可以查看和切换当前使用的版本和未使用的版本 1234brew install php-versionsource $(brew --prefix php-version)/php-version.shp">
 <meta name="keywords" content="PHP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mac多PHP版本共存">
 <meta property="og:url" content="http://awezome.top/201801/Mac多PHP版本共存/index.html">
 <meta property="og:site_name" content="AwezomeTop">
-<meta property="og:description" content="先安装 php 123brew install php56brew unlink php56brew install php71 主要用到 php-version 扩展，执行php-version可以查看和切换当前使用的版本和未使用的版本 1234brew install php-versionsource $(brew --prefix php-version)/php-version.shph">
+<meta property="og:description" content="先安装 php 123brew install php56brew unlink php56brew install php71  主要用到 php-version 扩展，执行php-version可以查看和切换当前使用的版本和未使用的版本 1234brew install php-versionsource $(brew --prefix php-version)/php-version.shp">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-07-28T13:18:59.083Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mac多PHP版本共存">
-<meta name="twitter:description" content="先安装 php 123brew install php56brew unlink php56brew install php71 主要用到 php-version 扩展，执行php-version可以查看和切换当前使用的版本和未使用的版本 1234brew install php-versionsource $(brew --prefix php-version)/php-version.shph">
+<meta name="twitter:description" content="先安装 php 123brew install php56brew unlink php56brew install php71  主要用到 php-version 扩展，执行php-version可以查看和切换当前使用的版本和未使用的版本 1234brew install php-versionsource $(brew --prefix php-version)/php-version.shp">
   
     <link rel="alternative" href="/atom.xml" title="AwezomeTop" type="application/atom+xml">
   
@@ -176,8 +176,10 @@
             
             <p>先安装 php</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">brew install php56</span><br><span class="line">brew unlink php56</span><br><span class="line">brew install php71</span><br></pre></td></tr></table></figure>
+
 <p>主要用到 php-version 扩展，执行php-version可以查看和切换当前使用的版本和未使用的版本</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">brew install php-version</span><br><span class="line">source $(brew --prefix php-version)/php-version.sh</span><br><span class="line"></span><br><span class="line">php-version</span><br></pre></td></tr></table></figure>
+
 <p>进入PHP的配置目录把php-fpm的端口默认端口修改掉。</p>
 <p>5.6的配置文件在 /usr/local/etc/php/5.6/php-fpm.conf</p>
 <p>7.1的配置文件在 /usr/local/etc/php/7.1/php-fpm.d/</p>

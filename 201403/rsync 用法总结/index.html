@@ -188,9 +188,11 @@
 --delete delete the unuseful files
 --include
 --exclude
---max-size=&#39;100K&#39;  no large files</code><br><a id="more"></a><br>1.同步两个本地目录<br><code>rsync -zvr /var/opt/installation/inventory/ /root/temp</code><br>2.同步一个文件<br><code>rsync -v /var/lib/rpm/Pubkeys /root/temp/</code><br>3.从本地同步到服务器<br><code>rsync -avz /root/temp/ thegeekstuff@192.168.200.10:/home/thegeekstuff/temp/</code><br>4.从服务器同步到本地<br><code>rsync -avz thegeekstuff@192.168.200.10:/var/lib/rpm /root/temp</code><br>5.仅同步目录结构<br><code>rsync -v -d thegeekstuff@192.168.200.10:/var/lib/ .</code><br>6.查看改变的文件<br><code>rsync -avzi thegeekstuff@192.168.200.10:/var/lib/rpm/ /root/temp/</code></p>
+--max-size=&#39;100K&#39;  no large files</code></p>
+<a id="more"></a>
+<p>1.同步两个本地目录<br><code>rsync -zvr /var/opt/installation/inventory/ /root/temp</code><br>2.同步一个文件<br><code>rsync -v /var/lib/rpm/Pubkeys /root/temp/</code><br>3.从本地同步到服务器<br><code>rsync -avz /root/temp/ thegeekstuff@192.168.200.10:/home/thegeekstuff/temp/</code><br>4.从服务器同步到本地<br><code>rsync -avz thegeekstuff@192.168.200.10:/var/lib/rpm /root/temp</code><br>5.仅同步目录结构<br><code>rsync -v -d thegeekstuff@192.168.200.10:/var/lib/ .</code><br>6.查看改变的文件<br><code>rsync -avzi thegeekstuff@192.168.200.10:/var/lib/rpm/ /root/temp/</code></p>
 <p>实例<br><code>rsync -r --del --exclude=&quot;abc/config&quot; --exclude=&quot;.idea/*&quot;  rsync://192.168.1.5/all /opt/web/htdocs/</code></p>
-<p>[<a href="http://www.thegeekstuff.com/2010/09/rsync-command-examples/" target="_blank" rel="noopener">http://www.thegeekstuff.com/2010/09/rsync-command-examples/</a>]</p>
+<p>[<a href="http://www.thegeekstuff.com/2010/09/rsync-command-examples/]" target="_blank" rel="noopener">http://www.thegeekstuff.com/2010/09/rsync-command-examples/]</a></p>
 
             
 
