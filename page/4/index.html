@@ -147,6 +147,106 @@
                 <div id="js-content" class="content-ll">
                     
   
+    <article id="post-关于 redis 文档 lrange start &gt; end 情况的一点说明"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/201405/关于 redis 文档 lrange start > end 情况的一点说明/">关于 redis 文档 lrange start &gt; end 情况的一点说明</a>
+    </h1>
+  
+
+            
+            <a href="/201405/关于 redis 文档 lrange start > end 情况的一点说明/" class="archive-article-date">
+  	<time datetime="2014-05-13T01:35:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2014-05-13</time>
+</a>
+            
+        </header>
+        
+        <div class="article-entry" itemprop="articleBody">
+            <div class="article-seg"></div>
+
+            
+            <p>redis 官方文档里对 lrange start &gt; end 说了这样一句话</p>
+<blockquote>
+<p>If start is larger than the end of the list, an empty list is returned.</p>
+</blockquote>
+<p>就是说  start &gt; end 就会返回一个空list ,不过这里还有一种特殊情况。就是end 为负数时，比如</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lrange ilist 0 -1</span><br></pre></td></tr></table></figure>
+<p>那么它会返回整个 list ,这里先不考虑极端情况。就和 an empty list is returned  相冲突，这是其中一种理解方式。另一种是负数在list里不是指小于0的自然数，而是指list尾端的数，比如</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; RPUSH lst 1 3 5 7 9</span><br><span class="line"> (integer) 5</span><br><span class="line"></span><br><span class="line">127.0.0.1:6379&gt; LRANGE lst 0 -1</span><br><span class="line">1) "1"</span><br><span class="line">2) "3"</span><br><span class="line">3) "5"</span><br><span class="line">4) "7"</span><br><span class="line">5) "9"</span><br></pre></td></tr></table></figure>
+<p>那么此时-1指的是5, 也就符合了 0 &lt;-1 =5 的情况，文档就没有错了。<br>总的来说，还是文档有要严谨的地方。</p>
+<p>p.s. 后来发现 end 包括 stop 及 -1 的情况，文档没有问题。</p>
+            
+            <!--<a class="article-more-read" href="/201405/关于 redis 文档 lrange start > end 情况的一点说明/#more">Continue Reading</a>-->
+            
+            
+
+            
+        </div>
+        <div class="article-info article-info-index">
+            
+            
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/tags/redis/" class="article-tag-list-link color1">redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+            
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Other/" class="article-tag-list-link color1">Other</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+
+            
+            <p class="article-more-link">
+                <a class="article-more-a" href="/201405/关于 redis 文档 lrange start > end 情况的一点说明/"> 阅读全文 <i class="icon-circle-right"></i></a>
+            </p>
+            
+
+
+            
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+  
     <article id="post-跳表 Skip List 的基本概念"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -990,102 +1090,6 @@
             
             <p class="article-more-link">
                 <a class="article-more-a" href="/201404/xshell Solarized Dark配色/"> 阅读全文 <i class="icon-circle-right"></i></a>
-            </p>
-            
-
-
-            
-            <div class="clearfix"></div>
-        </div>
-    </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-  
-    <article id="post-MySQL 默认字符集设置"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-    <div class="article-inner">
-        
-        <header class="article-header">
-            
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/201404/MySQL 默认字符集设置/">MySQL 默认字符集设置</a>
-    </h1>
-  
-
-            
-            <a href="/201404/MySQL 默认字符集设置/" class="archive-article-date">
-  	<time datetime="2014-04-07T10:52:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2014-04-07</time>
-</a>
-            
-        </header>
-        
-        <div class="article-entry" itemprop="articleBody">
-            <div class="article-seg"></div>
-
-            
-            <p>在 Fedora 安装完 MySQL 后编字符编码可能是非 utf8的，这样以来像 Review Board 没设置默认的就会按非 utf8 默认字符集来安装，就不能很好的显示中文，所以安装完 MySQL 后要进行相应的编码设置。</p>
-<p>命令行模式进入MySQL，敲入status命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Server characterset:	latin1</span><br><span class="line">Db     characterset:	latin1</span><br><span class="line">Client characterset:	utf8</span><br><span class="line">Conn.  characterset:	utf8</span><br></pre></td></tr></table></figure></p>
-<p>有两个latin1 ，我们要把它干掉：<br>停止<br>MySQL Server<br>打开<br>/etc/my.cnf.d/ 有的是（/etc/mysql/my.cnf）<br>设置如下：<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[client]</span></span><br><span class="line"><span class="attr">default-character-set</span> = utf8</span><br><span class="line"><span class="section">[mysqld]</span></span><br><span class="line"><span class="attr">character_set_server</span> = utf8 </span><br><span class="line"><span class="attr">init_connect</span>=<span class="string">'SET NAMES utf8'</span></span><br></pre></td></tr></table></figure></p>
-<p>保存后退出<br>如果启动失败，用 character_set_server = utf8 这个试试</p>
-<p>重启mysql再status<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Server characterset:	utf8</span><br><span class="line">Db     characterset:	utf8</span><br><span class="line">Client characterset:	utf8</span><br><span class="line">Conn.  characterset:	utf8</span><br></pre></td></tr></table></figure></p>
-
-            
-            <!--<a class="article-more-read" href="/201404/MySQL 默认字符集设置/#more">Continue Reading</a>-->
-            
-            
-
-            
-        </div>
-        <div class="article-info article-info-index">
-            
-            
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/tags/MySQL/" class="article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-            
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/MySQL/" class="article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-
-            
-            <p class="article-more-link">
-                <a class="article-more-a" href="/201404/MySQL 默认字符集设置/"> 阅读全文 <i class="icon-circle-right"></i></a>
             </p>
             
 

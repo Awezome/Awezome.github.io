@@ -147,6 +147,96 @@
                 <div id="js-content" class="content-ll">
                     
   
+    <article id="post-使Qt程序只运行一个实例"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/201208/使Qt程序只运行一个实例/">【转】使Qt程序只运行一个实例</a>
+    </h1>
+  
+
+            
+            <a href="/201208/使Qt程序只运行一个实例/" class="archive-article-date">
+  	<time datetime="2012-08-05T10:12:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2012-08-05</time>
+</a>
+            
+        </header>
+        
+        <div class="article-entry" itemprop="articleBody">
+            <div class="article-seg"></div>
+
+            
+            <p>【转】<a href="http://blog.csdn.net/tingsking18/" target="_blank" rel="noopener">http://blog.csdn.net/tingsking18/</a></p>
+<p>让应用程序只运行一个实例，这个问题很古老了。以及以前 HGR 老胡写过操作 event 的 delphi 版本的。当然在 win 下这样的解决方案还是很多的。</p>
+<p>让 Qt 程序只运行一个实例，当然用 win 下的 native API 是很不靠谱的，因为这样会牺牲掉 Qt 跨平台的特性。所以我给出下面两种解决方案。原理上就是进程间通讯。 QSingleApplication 用的而是 socket ，而我使用的是共享内存。</p>
+<ol>
+<li>使用 QSingleApplication 。</li>
+</ol>
+<p>QSingleApplication 是 Qt 提供的一个 solution ，它不包含在 Qt 的 library 中。遵循 LGPL 协议。关于如何使用，下载了这个 solution 之后，里面有例子。还有， QtCreator 中还用到了它。你也可以翻一番 QtCreator 的源代码。</p>
+<ol>
+<li>使用共享内存。</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 确保只运行一次</span></span><br><span class="line"></span><br><span class="line"><span class="function">QSystemSemaphore <span class="title">sema</span><span class="params">(<span class="string">"JAMKey"</span>,<span class="number">1</span>,QSystemSemaphore::Open)</span></span>;</span><br><span class="line"></span><br><span class="line">sema.acquire();<span class="comment">// 在临界区操作共享内存 SharedMemory</span></span><br><span class="line"></span><br><span class="line"><span class="function">QSharedMemory <span class="title">mem</span><span class="params">(<span class="string">"SystemObject"</span>)</span></span>;<span class="comment">// 全局对象名</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!mem.create(<span class="number">1</span>))<span class="comment">// 如果全局对象以存在则退出</span></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">QMessageBox::information(<span class="number">0</span>, MESSAGEBOXTXT,<span class="string">"An instance has already been running."</span>);</span><br><span class="line"></span><br><span class="line">sema.release();<span class="comment">// 如果是 Unix 系统，会自动释放。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sema.release();<span class="comment">// 临界区</span></span><br></pre></td></tr></table></figure>
+            
+            <!--<a class="article-more-read" href="/201208/使Qt程序只运行一个实例/#more">Continue Reading</a>-->
+            
+            
+
+            
+        </div>
+        <div class="article-info article-info-index">
+            
+            
+            
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Qt/" class="article-tag-list-link color3">Qt</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+
+            
+            <p class="article-more-link">
+                <a class="article-more-a" href="/201208/使Qt程序只运行一个实例/"> 阅读全文 <i class="icon-circle-right"></i></a>
+            </p>
+            
+
+
+            
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+  
     <article id="post-CM设置—性能设置—Cpu设置—可用调速器的设置"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">

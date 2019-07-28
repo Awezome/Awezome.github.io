@@ -147,6 +147,104 @@
                 <div id="js-content" class="content-ll">
                     
   
+    <article id="post-WordPress 编译安装 PHP 7.0.4 及优化配置"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/201603/WordPress 编译安装 PHP 7.0.4 及优化配置/">WordPress 编译安装 PHP 7.0.4 及优化配置</a>
+    </h1>
+  
+
+            
+            <a href="/201603/WordPress 编译安装 PHP 7.0.4 及优化配置/" class="archive-article-date">
+  	<time datetime="2016-03-20T09:18:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-03-20</time>
+</a>
+            
+        </header>
+        
+        <div class="article-entry" itemprop="articleBody">
+            <div class="article-seg"></div>
+
+            
+            <p>好长时间没有理自己的博客了，今天正好有时间，把PHP升级到最新版本PHP 7.0.4。</p>
+<p>还是选择编译安装，PHP7 推荐 gcc 4.8以上，gcc -v 看了一下VPS才4.4，所以第一步先升级一下 gcc，这个过程比较长，可以先下部电影等着~~</p>
+<p>因为VPS配置太low，所以先准备一些，搞个临时swap </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ SWAP=/tmp/swap</span><br><span class="line">$ dd if=/dev/zero of=$SWAP bs=1M count=1000</span><br><span class="line">$ mkswap $SWAP</span><br><span class="line">$ swapon $SWAP</span><br><span class="line">#最后记得关上</span><br><span class="line">$ swapoff -a</span><br></pre></td></tr></table></figure>
+<p>ok , 开始······<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ wget http://ftp.tsukuba.wide.ad.jp/software/gcc/releases/gcc-5.3.0/gcc-5.3.0.tar.gz</span><br><span class="line">$ tar -xf gcc-5.3.0.tar.gz</span><br><span class="line">$ cd gcc-5.3.0</span><br><span class="line">$ ./contrib/download_prerequisites</span><br><span class="line">$ mkdir gcc_temp  &amp;&amp; cd gcc_temp</span><br><span class="line">$ ../configure --enable-checking=release --enable-languages=c,c++ --disable-multilib</span><br><span class="line">$ make &amp;&amp; make install</span><br></pre></td></tr></table></figure></p>
+<p>当然再装gcc时有一些小问题，大多可以google到，这里记一点,如果出现 <em>*</em> [stage1-bubble] 错误 2<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64</span><br><span class="line">$ source /etc/profile</span><br></pre></td></tr></table></figure></p>
+<p>gcc -v 看一下，好了的话就开始PHP</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ wget http://cn2.php.net/get/php-7.0.4.tar.bz2/from/this/mirror</span><br><span class="line">$ tar xzvf mirror</span><br><span class="line">$ cd php-7.0.4/</span><br><span class="line">$ ./configure --prefix=/data/app/php7 --with-curl --with-freetype-dir --with-gd --with-gettext --with-iconv-dir --with-kerberos --with-libdir=lib64 --with-libxml-dir --with-mysqli --with-openssl --with-pcre-regex --with-pdo-mysql --with-pdo-sqlite --with-pear --with-png-dir --with-xmlrpc --with-xsl --with-zlib --enable-fpm --enable-bcmath --enable-libxml --enable-inline-optimization --enable-gd-native-ttf --enable-mbregex --enable-mbstring --enable-opcache --enable-pcntl --enable-shmop --enable-soap --enable-sockets --enable-sysvsem --enable-xml --enable-zip</span><br><span class="line">$ make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+            
+            <!--<a class="article-more-read" href="/201603/WordPress 编译安装 PHP 7.0.4 及优化配置/#more">Continue Reading</a>-->
+            
+            
+
+            
+        </div>
+        <div class="article-info article-info-index">
+            
+            
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/tags/php/" class="article-tag-list-link color4">php</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+            
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/PHP/" class="article-tag-list-link color4">PHP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+
+            
+            <p class="article-more-link">
+                <a class="article-more-a" href="/201603/WordPress 编译安装 PHP 7.0.4 及优化配置/"> 阅读全文 <i class="icon-circle-right"></i></a>
+            </p>
+            
+
+
+            
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+  
     <article id="post-Lavarel 增加全局函数文件"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -960,108 +1058,6 @@
             
             <p class="article-more-link">
                 <a class="article-more-a" href="/201410/iFrame高度自适应内容/"> 阅读全文 <i class="icon-circle-right"></i></a>
-            </p>
-            
-
-
-            
-            <div class="clearfix"></div>
-        </div>
-    </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-  
-    <article id="post-PHP读取大文件的多种处理方式"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-    <div class="article-inner">
-        
-        <header class="article-header">
-            
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/201407/PHP读取大文件的多种处理方式/">PHP读取大文件的多种处理方式</a>
-    </h1>
-  
-
-            
-            <a href="/201407/PHP读取大文件的多种处理方式/" class="archive-article-date">
-  	<time datetime="2014-07-27T09:55:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2014-07-27</time>
-</a>
-            
-        </header>
-        
-        <div class="article-entry" itemprop="articleBody">
-            <div class="article-seg"></div>
-
-            
-            <p>一直感觉PHP处理大文件是一件很不靠谱的事性，幸好有着越来越多的方法来解决这件事行。</p>
-<p>1.直接File<br>如果这个大文件不算“太大”，那么就可以先用File这个方法直接把文件全部读到变量里，成为一个数组，每行为一个value。优点就是简单快速。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">print_r(file(<span class="string">"test.txt"</span>));</span><br><span class="line"><span class="meta">?&gt;</span> </span><br><span class="line"><span class="comment">//output</span></span><br><span class="line"><span class="keyword">Array</span></span><br><span class="line">(</span><br><span class="line">[<span class="number">0</span>] =&gt; Hello World. Testing testing!</span><br><span class="line">[<span class="number">1</span>] =&gt; Another day, another line.</span><br><span class="line">[<span class="number">2</span>] =&gt; <span class="keyword">If</span> the <span class="keyword">array</span> picks up this line,</span><br><span class="line">[<span class="number">3</span>] =&gt; then is it a pickup line?</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>2.这个方法是很传统的方法，每读一行处理一行。<a id="more"></a><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$handle = @fopen($filename, <span class="string">"r"</span>);</span><br><span class="line"><span class="keyword">if</span> (!$handle) &#123;</span><br><span class="line">    <span class="keyword">exit</span>();</span><br><span class="line">&#125;</span><br><span class="line">$i=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (($buffer = fgets($handle)) !== <span class="keyword">false</span>) &#123;</span><br><span class="line">    <span class="keyword">echo</span> $buffer;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (!feof($handle)) &#123;</span><br><span class="line">    <span class="keyword">echo</span> (<span class="string">"Error: unexpected fgets() fail\n"</span>);</span><br><span class="line">    <span class="keyword">exit</span>();</span><br><span class="line">&#125;</span><br><span class="line">fclose($handle);</span><br></pre></td></tr></table></figure></p>
-<p>3.使用SPL SplFileObject , 这个好像更厉害，不过要PHP 5.1的支持。<br>这个类用来对文本文件进行遍历。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    <span class="keyword">foreach</span>( <span class="keyword">new</span> SplFileObject(<span class="string">'/log/php.log'</span>) <span class="keyword">as</span> $line)</span><br><span class="line">    <span class="keyword">echo</span> $line.<span class="string">'</span></span><br><span class="line"><span class="string">'</span>;</span><br><span class="line">&#125;<span class="keyword">catch</span> (<span class="keyword">Exception</span> $e)&#123;</span><br><span class="line">    <span class="keyword">echo</span> $e-&gt;getMessage();</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>返回文本文件的第10行，可以这样写：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    $file = <span class="keyword">new</span> SplFileObject(<span class="string">"/log/php.log"</span>);</span><br><span class="line">    $file-&gt;seek(<span class="number">10</span>);</span><br><span class="line">    <span class="keyword">echo</span> $file-&gt;current();</span><br><span class="line">&#125;<span class="keyword">catch</span> (<span class="keyword">Exception</span> $e)&#123;</span><br><span class="line">    <span class="keyword">echo</span> $e-&gt;getMessage();</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>当然要判断当前行数是不是超过了文件总行数，获得文件的行数的方汗以。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$fp = fopen($temp_file ,<span class="string">'r'</span>) <span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">"open file failure!"</span>);</span><br><span class="line">$total_line = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">if</span>($fp)&#123;</span><br><span class="line">    <span class="comment">/* 获取文件的一行内容，注意：需要php5才支持该函数; */</span></span><br><span class="line">    <span class="keyword">while</span>(stream_get_line($fp, <span class="number">8192</span>, <span class="string">"\r\n"</span>))&#123;</span><br><span class="line">        $total_line++;</span><br><span class="line">    &#125;</span><br><span class="line">    fclose($fp);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>这里有个集2，3方法的函数，可以读取几行的内容<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getFileLines</span><span class="params">($filename, $startLine = <span class="number">1</span>, $endLine=<span class="number">50</span>, $method=<span class="string">'rb'</span>)</span> </span>&#123;</span><br><span class="line">    $content = <span class="keyword">array</span>();</span><br><span class="line">    $count = $endLine - $startLine;</span><br><span class="line">    <span class="keyword">if</span>(version_compare(PHP_VERSION, <span class="string">'5.1.0'</span>, <span class="string">'&gt;='</span>))&#123;<span class="comment">/* 判断php版本（因为要用到SplFileObject，PHP&gt;=5.1.0） */</span></span><br><span class="line">        $fp = <span class="keyword">new</span> SplFileObject($filename, $method);</span><br><span class="line">        $fp-&gt;seek($startLine<span class="number">-1</span>);<span class="comment">/* 转到第N行, seek方法参数从0开始计数 */</span></span><br><span class="line">        <span class="keyword">for</span>($i = <span class="number">0</span>; $i &lt;= $count; ++$i) &#123;</span><br><span class="line">            $content[] = unserialize($fp-&gt;current());<span class="comment">/* current()获取当前行内容 */</span></span><br><span class="line">            $fp-&gt;next();<span class="comment">/* 下一行 */</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;<span class="comment">/*PHP&lt;5.1 */</span></span><br><span class="line">        $fp = fopen($filename, $method);</span><br><span class="line">        <span class="keyword">if</span>(!$fp) <span class="keyword">return</span> <span class="string">'error:can not read file'</span>;</span><br><span class="line">        <span class="keyword">for</span> ($i=<span class="number">1</span>;$i&lt;$startLine;++$i) &#123;<span class="comment">/* 跳过前$startLine行 */</span></span><br><span class="line">            fgets($fp);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>($i;$i&lt;=$endLine;++$i)&#123;</span><br><span class="line">            $content[] = unserialize(fgets($fp));<span class="comment">/* 读取文件行内容 */</span></span><br><span class="line">        &#125;</span><br><span class="line">        fclose($fp);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> array_filter($content); <span class="comment">/* array_filter过滤：false,null,'' */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-            
-            <!--<a class="article-more-read" href="/201407/PHP读取大文件的多种处理方式/#more">Continue Reading</a>-->
-            
-            
-
-            
-        </div>
-        <div class="article-info article-info-index">
-            
-            
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/tags/php/" class="article-tag-list-link color4">php</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/tags/大文件/" class="article-tag-list-link color4">大文件</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-            
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/PHP/" class="article-tag-list-link color4">PHP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-
-            
-            <p class="article-more-link">
-                <a class="article-more-a" href="/201407/PHP读取大文件的多种处理方式/"> 阅读全文 <i class="icon-circle-right"></i></a>
             </p>
             
 

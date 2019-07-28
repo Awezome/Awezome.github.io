@@ -147,6 +147,97 @@
                 <div id="js-content" class="content-ll">
                     
   
+    <article id="post-慎用tcp_tw_recycle"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+            
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/201805/慎用tcp_tw_recycle/">慎用tcp_tw_recycle</a>
+    </h1>
+  
+
+            
+            <a href="/201805/慎用tcp_tw_recycle/" class="archive-article-date">
+  	<time datetime="2018-05-13T01:30:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-13</time>
+</a>
+            
+        </header>
+        
+        <div class="article-entry" itemprop="articleBody">
+            <div class="article-seg"></div>
+
+            
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">echo 1 &gt; /proc/sys/net/ipv4/tcp_tw_recycle</span><br><span class="line">sysctl -a | grep &quot;tcp_tw&quot;</span><br><span class="line">sysctl -w net.ipv4.tcp_tw_recycle=0</span><br><span class="line">sysctl -p</span><br></pre></td></tr></table></figure>
+            
+            <!--<a class="article-more-read" href="/201805/慎用tcp_tw_recycle/#more">Continue Reading</a>-->
+            
+            
+
+            
+        </div>
+        <div class="article-info article-info-index">
+            
+            
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/tags/Linux/" class="article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+            
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Linux/" class="article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+
+            
+            <p class="article-more-link">
+                <a class="article-more-a" href="/201805/慎用tcp_tw_recycle/"> 阅读全文 <i class="icon-circle-right"></i></a>
+            </p>
+            
+
+
+            
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+  
     <article id="post-Mac多PHP版本共存"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -981,104 +1072,6 @@
             
             <p class="article-more-link">
                 <a class="article-more-a" href="/201604/Bitmap 算法解释与应用/"> 阅读全文 <i class="icon-circle-right"></i></a>
-            </p>
-            
-
-
-            
-            <div class="clearfix"></div>
-        </div>
-    </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-  
-    <article id="post-WordPress 编译安装 PHP 7.0.4 及优化配置"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-    <div class="article-inner">
-        
-        <header class="article-header">
-            
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/201603/WordPress 编译安装 PHP 7.0.4 及优化配置/">WordPress 编译安装 PHP 7.0.4 及优化配置</a>
-    </h1>
-  
-
-            
-            <a href="/201603/WordPress 编译安装 PHP 7.0.4 及优化配置/" class="archive-article-date">
-  	<time datetime="2016-03-20T09:18:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-03-20</time>
-</a>
-            
-        </header>
-        
-        <div class="article-entry" itemprop="articleBody">
-            <div class="article-seg"></div>
-
-            
-            <p>好长时间没有理自己的博客了，今天正好有时间，把PHP升级到最新版本PHP 7.0.4。</p>
-<p>还是选择编译安装，PHP7 推荐 gcc 4.8以上，gcc -v 看了一下VPS才4.4，所以第一步先升级一下 gcc，这个过程比较长，可以先下部电影等着~~</p>
-<p>因为VPS配置太low，所以先准备一些，搞个临时swap </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ SWAP=/tmp/swap</span><br><span class="line">$ dd if=/dev/zero of=$SWAP bs=1M count=1000</span><br><span class="line">$ mkswap $SWAP</span><br><span class="line">$ swapon $SWAP</span><br><span class="line">#最后记得关上</span><br><span class="line">$ swapoff -a</span><br></pre></td></tr></table></figure>
-<p>ok , 开始······<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ wget http://ftp.tsukuba.wide.ad.jp/software/gcc/releases/gcc-5.3.0/gcc-5.3.0.tar.gz</span><br><span class="line">$ tar -xf gcc-5.3.0.tar.gz</span><br><span class="line">$ cd gcc-5.3.0</span><br><span class="line">$ ./contrib/download_prerequisites</span><br><span class="line">$ mkdir gcc_temp  &amp;&amp; cd gcc_temp</span><br><span class="line">$ ../configure --enable-checking=release --enable-languages=c,c++ --disable-multilib</span><br><span class="line">$ make &amp;&amp; make install</span><br></pre></td></tr></table></figure></p>
-<p>当然再装gcc时有一些小问题，大多可以google到，这里记一点,如果出现 <em>*</em> [stage1-bubble] 错误 2<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64</span><br><span class="line">$ source /etc/profile</span><br></pre></td></tr></table></figure></p>
-<p>gcc -v 看一下，好了的话就开始PHP</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ wget http://cn2.php.net/get/php-7.0.4.tar.bz2/from/this/mirror</span><br><span class="line">$ tar xzvf mirror</span><br><span class="line">$ cd php-7.0.4/</span><br><span class="line">$ ./configure --prefix=/data/app/php7 --with-curl --with-freetype-dir --with-gd --with-gettext --with-iconv-dir --with-kerberos --with-libdir=lib64 --with-libxml-dir --with-mysqli --with-openssl --with-pcre-regex --with-pdo-mysql --with-pdo-sqlite --with-pear --with-png-dir --with-xmlrpc --with-xsl --with-zlib --enable-fpm --enable-bcmath --enable-libxml --enable-inline-optimization --enable-gd-native-ttf --enable-mbregex --enable-mbstring --enable-opcache --enable-pcntl --enable-shmop --enable-soap --enable-sockets --enable-sysvsem --enable-xml --enable-zip</span><br><span class="line">$ make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
-            
-            <!--<a class="article-more-read" href="/201603/WordPress 编译安装 PHP 7.0.4 及优化配置/#more">Continue Reading</a>-->
-            
-            
-
-            
-        </div>
-        <div class="article-info article-info-index">
-            
-            
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/tags/php/" class="article-tag-list-link color4">php</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-            
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/PHP/" class="article-tag-list-link color4">PHP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-
-            
-            <p class="article-more-link">
-                <a class="article-more-a" href="/201603/WordPress 编译安装 PHP 7.0.4 及优化配置/"> 阅读全文 <i class="icon-circle-right"></i></a>
             </p>
             
 
