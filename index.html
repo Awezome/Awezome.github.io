@@ -156,7 +156,7 @@
             
   
     <h1 itemprop="name">
-      <a class="article-title" href="/201805/慎用tcp_tw_recycle/">慎用tcp_tw_recycle</a>
+      <a class="article-title" href="/201805/慎用tcp_tw_recycle/">被移除的 tcp_tw_recycle</a>
     </h1>
   
 
@@ -171,7 +171,20 @@
             <div class="article-seg"></div>
 
             
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">echo 1 &gt; /proc/sys/net/ipv4/tcp_tw_recycle</span><br><span class="line">sysctl -a | grep &quot;tcp_tw&quot;</span><br><span class="line">sysctl -w net.ipv4.tcp_tw_recycle=0</span><br><span class="line">sysctl -p</span><br></pre></td></tr></table></figure>
+            <p>之前遇到一个问题，访问线上某台机器总是在一断时间出现连不上的情况，查了好久才发现是 tcp_tw_recycle 这个参数被设置成了1。</p>
+<ol>
+<li>同时开启tcp_timestamp和tcp_tw_recycle会启用TCP/IP协议栈的per-host的PAWS机制</li>
+<li>经过同一NAT转换后的来自不同真实client的数据流，在服务端看来是于同一host打交道</li>
+<li>虽然经过同一NAT转化，但由于不同真实client会携带各自的timestamp值,因而无法保证整过NAT转化后的数据包携带的timestamp值严格递增</li>
+<li>当服务器的per-host PAWS机制被触发后，会丢弃timestamp值不符合递增条件的数据包</li>
+</ol>
+<p>最佳实践<br>net.ipv4.tcp_timestamps=1<br>net.ipv4.tcp_tw_recycle=0<br>net.ipv4.tcp_tw_reuse=1  //开启可以重用TIME_WAIT套接字</p>
+<p>查看与设置 tcp_tw_recycle</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sysctl -a | grep &quot;tcp_tw&quot; </span><br><span class="line">echo 1 &gt; /proc/sys/net/ipv4/tcp_tw_recycle</span><br><span class="line">sysctl -w net.ipv4.tcp_tw_recycle=0</span><br><span class="line">sysctl -p</span><br></pre></td></tr></table></figure>
+
+<p>Linux 4.12 已经移除了 tcp_tw_recycle 这个参数，<a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=95a22caee396cef0bb2ca8fafdd82966a49367bb" target="_blank" rel="noopener">https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=95a22caee396cef0bb2ca8fafdd82966a49367bb</a> </p>
+<p>Ref.<br><a href="https://vincent.bernat.ch/en/blog/2014-tcp-time-wait-state-linux" target="_blank" rel="noopener">https://vincent.bernat.ch/en/blog/2014-tcp-time-wait-state-linux</a><br><a href="https://ieevee.com/tech/2017/07/19/tcp-tw-recycle.html" target="_blank" rel="noopener">https://ieevee.com/tech/2017/07/19/tcp-tw-recycle.html</a><br><a href="http://perthcharles.github.io/2015/08/27/timestamp-NAT/" target="_blank" rel="noopener">http://perthcharles.github.io/2015/08/27/timestamp-NAT/</a></p>
+
             
             <!--<a class="article-more-read" href="/201805/慎用tcp_tw_recycle/#more">Continue Reading</a>-->
             
